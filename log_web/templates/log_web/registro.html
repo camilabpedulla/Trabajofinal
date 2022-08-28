@@ -2,6 +2,7 @@
 
 {% block detail_productos %}
 
+    <form  method="POST" > 
     {% if error %}
     
     <p style="color: red"> {{ error}}  </p>
@@ -10,11 +11,10 @@
     
     
     
-    <form  method="POST" > {% csrf_token %}
-
+        {% csrf_token %}
         {{ formulario.as_p }}
 
-         <input type="submit" value="Iniciar sesion">
+         <input type="submit" value="Registrarse">
         
    </form>
 

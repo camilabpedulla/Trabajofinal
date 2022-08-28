@@ -5,6 +5,8 @@ from WebPage.forms import FormularioBusqueda, FormularioProducto, FormularioInte
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView 
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 
 
@@ -131,7 +133,7 @@ def sucursales_carga(request):
             
             return HttpResponse(f"La informacion ingresada no es valida")
 
-class lista_productos (ListView):
+class lista_productos ( ListView):
     model = Productos
     template_name = 'WebPage/leer_prod.html'
 
@@ -141,17 +143,17 @@ class detalle_prod (DetailView):
     template_name = 'WebPage/detalle_prod.html'
 
 
-class crear_prod (CreateView):
+class crear_prod (LoginRequiredMixin, CreateView):
     model = Productos
     success_url = "/WebPage/inicio"
     fields = ["nombre", "modelo", "precio"]
 
-class editar_prod (UpdateView):
+class editar_prod (LoginRequiredMixin, UpdateView):
     model = Productos
     success_url = "/WebPage/inicio"
     fields = ["nombre", "modelo", "precio"]
 
-class borrar_prod (DeleteView):
+class borrar_prod (LoginRequiredMixin, DeleteView):
     model = Productos
     success_url = "/WebPage/inicio"
 
